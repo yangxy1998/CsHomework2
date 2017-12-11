@@ -1,0 +1,8 @@
+F:\C#\CsHomework2\CsHomework2\bin\Debug\CsHomework2.exe.config
+F:\C#\CsHomework2\CsHomework2\obj\Debug\CsHomework2.csprojResolveAssemblyReference.cache
+F:\C#\CsHomework2\CsHomework2\obj\Debug\CsHomework2.Properties.Resources.resources
+F:\C#\CsHomework2\CsHomework2\obj\Debug\CsHomework2.csproj.GenerateResource.Cache
+F:\C#\CsHomework2\CsHomework2\bin\Debug\CsHomework2.exe
+F:\C#\CsHomework2\CsHomework2\bin\Debug\CsHomework2.pdb
+F:\C#\CsHomework2\CsHomework2\obj\Debug\CsHomework2.exe
+F:\C#\CsHomework2\CsHomework2\obj\Debug\CsHomework2.pdb
