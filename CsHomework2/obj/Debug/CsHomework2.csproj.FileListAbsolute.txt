@@ -6,3 +6,6 @@ F:\C#\CsHomework2\CsHomework2\bin\Debug\CsHomework2.exe
 F:\C#\CsHomework2\CsHomework2\bin\Debug\CsHomework2.pdb
 F:\C#\CsHomework2\CsHomework2\obj\Debug\CsHomework2.exe
 F:\C#\CsHomework2\CsHomework2\obj\Debug\CsHomework2.pdb
+E:\GitHub\CsHomework2\CsHomework2\bin\Debug\CsHomework2.exe.config
+E:\GitHub\CsHomework2\CsHomework2\obj\Debug\CsHomework2.exe
+E:\GitHub\CsHomework2\CsHomework2\obj\Debug\CsHomework2.pdb
