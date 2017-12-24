@@ -64,6 +64,7 @@ namespace CsHomework2
             Informations[] infos = new Informations[Htmls.Length];
             while (i < Htmls.Length)
             {
+                infos[i] = new Informations();
                 WebClient wc = new WebClient();
                 wc.Encoding = Encoding.UTF8;
                 string html = wc.DownloadString(Htmls[i]);
@@ -73,6 +74,10 @@ namespace CsHomework2
                 if (matches.Count > 0)
                 {
                     infos[i].JobName = matches[0].Groups["id"].Value.ToString();
+                }
+                else
+                {
+                    infos[i].JobName = "NULL";
                 }
                 regex = new Regex("<dl class=\"job-duty\">(?<content>.*?)</dl>");//获取岗位职责内包含的全部字符
                 matches = regex.Matches(html);
@@ -94,26 +99,63 @@ namespace CsHomework2
                 }
                 regex = new Regex("<p class=\"com-lbs\">(?<address>.*?)</p>");
                 matches = regex.Matches(html);
-                infos[i].CompanyAddress = matches[0].Groups["address"].Value.ToString();
+                if (matches.Count > 0)
+                {
+                    infos[i].CompanyAddress = matches[0].Groups["address"].Value.ToString();
+                }
+                else
+                {
+                    infos[i].CompanyAddress = "NULL";
+                }
                 regex = new Regex("<a href=\"/recommand\">内推首页</a><span>&gt;</span>(?<companyname>.*?)</div>");
                 matches = regex.Matches(html);
-                infos[i].CompanyName = matches[0].Groups["companyname"].Value.ToString();
+                if (matches.Count > 0)
+                {
+                    infos[i].CompanyName = matches[0].Groups["companyname"].Value.ToString();
+                }
+                else
+                {
+                    infos[i].CompanyName = "NULL";
+                }
                 regex = new Regex("<div class=\"com-detail\"><p>(?<detail>.*?)</p><p><a href=\"(?<website>.*?)\" target=\"_blank\">(?<web>.*?)</a></p></div>");
                 matches = regex.Matches(html);
                 content = new Regex(">(?<detail>.*?)<");
-                matchContents = content.Matches(matches[0].Groups["detail"].Value.ToString());
-                infos[i].CompanyDetails = "公司详情：";
-                foreach (Match item in matchContents)
+                if (matches.Count > 0)
                 {
-                    infos[i].CompanyDetails += item.Groups["detail"].Value.ToString();
+                    matchContents = content.Matches(matches[0].Groups["detail"].Value.ToString());
+                    infos[i].CompanyDetails = "公司详情：";
+                    foreach (Match item in matchContents)
+                    {
+                        infos[i].CompanyDetails += item.Groups["detail"].Value.ToString();
+                    }
+                    infos[i].CompanyWebsite = "公司网站：" + matches[0].Groups["web"].Value.ToString();
                 }
-                infos[i].CompanyWebsite = "公司网站：" + matches[0].Groups["web"].Value.ToString();
+                else
+                {
+                    infos[i].CompanyDetails = "NULL";
+                    infos[i].CompanyWebsite = "NULL";
+                }
                 regex = new Regex("<p class=\"com-price\">(?<price>.*?)</p>");
                 matches = regex.Matches(html);
-                infos[i].CompanyPrice = matches[0].Groups["price"].Value.ToString();
+                if (matches.Count > 0)
+                {
+                    infos[i].CompanyPrice = matches[0].Groups["price"].Value.ToString();
+                }
+                else
+                {
+                    infos[i].CompanyPrice = "NULL";
+                }
                 regex = new Regex("<p class=\"com-type\">(?<type>.*?)</p>");
                 matches = regex.Matches(html);
-                infos[i].CompanyType = matches[0].Groups["type"].Value.ToString();
+                if (matches.Count > 0)
+                {
+                    infos[i].CompanyType = matches[0].Groups["type"].Value.ToString();
+                }
+                else
+                {
+                    infos[i].CompanyType = "NULL";
+                }
+                Console.WriteLine(i);
                 i++;
             }
             return infos;
@@ -126,9 +168,13 @@ namespace CsHomework2
             if(s!=null){
                 int count = int.Parse(s);
                 infos = new Informations[count];
+                string text = reader.ReadToEnd();
+                Regex r=new Regex("<Informations>(?<informations>.*?)</Informations>");
+                MatchCollection matches=r.Matches(text);
                 for (int i = 0; i < count; i++)
                 {
-                    string info = reader.ReadLine();
+                    string info = matches[i].Groups["informations"].Value;
+                    infos[i] = new Informations();
                     Regex regex = new Regex("<CompanyName>(?<companyname>.*?)</CompanyName>");
                     Match match = regex.Match(info);
                     infos[i].CompanyName = match.Groups["companyname"].Value;
@@ -140,22 +186,22 @@ namespace CsHomework2
                     infos[i].JobDuty = match.Groups["jobduty"].Value;
                     regex = new Regex("<JobRequire>(?<jobrequire>.*?)</JobRequire>");
                     match = regex.Match(info);
-                    infos[i].JobName = match.Groups["jobrequire"].Value;
+                    infos[i].JobRequire = match.Groups["jobrequire"].Value;
                     regex = new Regex("<CompanyType>(?<companytype>.*?)</CompanyType>");
                     match = regex.Match(info);
-                    infos[i].JobName = match.Groups["companytype"].Value;
+                    infos[i].CompanyName = match.Groups["companytype"].Value;
                     regex = new Regex("<CompanyPrice>(?<companyprice>.*?)</CompanyPrice>");
                     match = regex.Match(info);
-                    infos[i].JobName = match.Groups["companyprice"].Value;
+                    infos[i].CompanyPrice = match.Groups["companyprice"].Value;
                     regex = new Regex("<CompanyAddress>(?<companyaddress>.*?)</CompanyAddress>");
                     match = regex.Match(info);
-                    infos[i].JobName = match.Groups["companyaddress"].Value;
+                    infos[i].CompanyAddress = match.Groups["companyaddress"].Value;
                     regex = new Regex("<CompanyDetails>(?<companydetails>.*?)</CompanyDetails>");
                     match = regex.Match(info);
-                    infos[i].JobName = match.Groups["companydetails"].Value;
+                    infos[i].CompanyDetails = match.Groups["companydetails"].Value;
                     regex = new Regex("<CompanyWebsite>(?<companywebsite>.*?)</CompanyWebsite>");
                     match = regex.Match(info);
-                    infos[i].JobName = match.Groups["companywebsite"].Value;
+                    infos[i].CompanyWebsite = match.Groups["companywebsite"].Value;
                 }
             }
             reader.Close();
@@ -175,7 +221,7 @@ namespace CsHomework2
                 writer.WriteLine(informations.Length);//写入数据条数
                 for (int i = 0; i < informations.Length; i++)
                 {
-                    writer.WriteLine("<CompanyName>"+informations[i].CompanyName+"</CompanyName>"
+                    writer.WriteLine("<Informations><CompanyName>"+informations[i].CompanyName+"</CompanyName>"
                         +"<JobName>"+informations[i].JobName+"</JobName>"
                         +"<JobDuty>"+informations[i].JobDuty+"</JobDuty>"
                         +"<JobRequire>"+informations[i].JobRequire+"</JobRequire>"
@@ -183,11 +229,37 @@ namespace CsHomework2
                         +"<CompanyPrice>"+informations[i].CompanyPrice+"</CompanyPrice>"
                         +"<CompanyAddress>"+informations[i].CompanyAddress+"</CompanyPrice>"
                         +"<CompanyDetails>"+informations[i].CompanyDetails+"</CompanyDetails>"
-                        +"<CompanyWebsite>"+informations[i].CompanyWebsite+"</CompanyWebsite>");
+                        +"<CompanyWebsite>"+informations[i].CompanyWebsite+"</CompanyWebsite></Informations>");
+                    Console.WriteLine(i);
                 }
                 writer.Close();
             }
             return filepath;
+        }
+
+        List<Company> Set_CompanyJobCount(Informations[] informations)//设置公司岗位数量，返回company列表
+        {
+            List<Company> Companies=new List<Company>();
+            foreach(Informations information in informations){
+                bool IsExist = false;//判断是否已存在这个公司
+                foreach (Company company in Companies)//在company列表当中寻找是否已存在
+                {
+                    if (company.CompanyName.Equals(information.CompanyName))
+                    {
+                        IsExist = true;
+                        company.WorkCount += 1;
+                    }
+                }
+                if (IsExist) continue;//如果存在这个公司
+                else//不存在，则新建一个
+                {
+                    Company company = new Company();
+                    company.CompanyName = information.CompanyName;
+                    company.WorkCount = 0;
+                    Companies.Add(company);
+                }
+            }
+            return Companies;
         }
     }
 }

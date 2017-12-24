@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
-using System.Threading;
-using System.Text.RegularExpressions;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace CsHomework2
 {
     interface Pictures
     {
-        
+        //获取柱状图，传入参数为Company，返回一个柱状图
+        Chart Get_BarGraph(List<Company> Companies);
+        //获取岗位技能树，传入参数为一条岗位信息，返回一个树状图
+        TreeView Get_WorkAbilityTree(Informations informations);
     }
 }

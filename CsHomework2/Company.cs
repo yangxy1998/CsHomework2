@@ -8,5 +8,15 @@ namespace CsHomework2
 {
     class Company
     {
+        public string CompanyName
+        {
+            set;
+            get;
+        }
+        public int WorkCount
+        {
+            set;
+            get;
+        }
     }
 }

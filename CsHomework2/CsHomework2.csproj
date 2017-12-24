@@ -75,6 +75,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Chart.Controls.4.7.2046\lib\net35\System.Windows.Forms.DataVisualization.Design.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization.MSChartExtension">
+      <HintPath>..\packages\MSChartExtension.2.1.1\lib\System.Windows.Forms.DataVisualization.MSChartExtension.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -85,6 +88,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Company.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +99,7 @@
     <Compile Include="GetInformationsImplement.cs" />
     <Compile Include="Informations.cs" />
     <Compile Include="Pictures.cs" />
+    <Compile Include="PicturesImplement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
