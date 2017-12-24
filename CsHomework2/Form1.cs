@@ -18,6 +18,7 @@ namespace CsHomework2
     public partial class Form1 : Form
     {
         GetInformations getinformations = new GetInformationsImplement();
+        Pictures pictures=new PicturesImplement();
         public Form1()
         {
             InitializeComponent();
@@ -30,10 +31,10 @@ namespace CsHomework2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string[] htmls = getinformations.GetHtml();
-            Informations[] informatios = getinformations.GetInformationsFromHtml(htmls);
-            string filepath = getinformations.WriteInformationsToFile(informatios);
-            Informations[] informations=getinformations.GetInformationsFromFile(filepath);
+            Informations[] informations = getinformations.GetInformationsFromFile("C:\\Users\\Administrator\\Desktop\\informations.txt");
+            List<Company> companies = getinformations.Set_CompanyJobCount(informations);
+            Graphics g = pictures.Get_BarGraph(companies);
+            imageList1.Draw(g, 0, 0, 0);
         }
     }
 }

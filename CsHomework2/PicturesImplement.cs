@@ -11,48 +11,36 @@ namespace CsHomework2
 {
     class PicturesImplement:Pictures
     {
-        Chart Pictures.Get_BarGraph(List<Company> companies)
+        Graphics Pictures.Get_BarGraph(List<Company> companies)
         {
             int[] counts = new int[companies.Count];
             string[] names = new string[companies.Count];
-            int i = 0;
+            int height = 500, width = 700;
+            Bitmap image = new Bitmap(width, height);
+            Graphics g = Graphics.FromImage(image);
+            Pen mypen = new Pen(Brushes.Black, 1);
+            g.FillRectangle(Brushes.WhiteSmoke, 0, 0, width, height);
+            for (int i = 0, x = 36; i < companies.Count; i++)
+            {
+                g.DrawLine(mypen, x, 80, x, 340);
+                x = x + 36;
+            }
+            for (int i = 0, y = 0; i < 20; i++)
+            {
+                Font font = new Font("宋体", 12);
+                g.DrawString((i * 10).ToString(), font, Brushes.Black,10,400-y);
+                g.DrawLine(mypen, 60, y, 620, y);
+                y = y + 20;
+            }
+            int X = 36;
             foreach (Company company in companies)
             {
-                counts[i] = company.WorkCount;
-                names[i] = company.CompanyName;
-                i++;
+                Font font=new Font("宋体",12);
+                g.DrawString(company.CompanyName, font, Brushes.Black, X, 400);
+                g.FillRectangle(Brushes.Green, X, 400, 20, company.WorkCount*2);
+                X += 36;
             }
-            Chart chart = new Chart();
-            chart.Width = 800;
-            chart.Height = 600;
-            chart.BackColor = Color.White;
-            chart.Name = "柱状图表";
-            chart.Palette = ChartColorPalette.BrightPastel;
-
-            ChartArea chartArea = new ChartArea("ChartArea1");
-            chartArea.BorderDashStyle = ChartDashStyle.Solid;
-            chartArea.BackColor = Color.WhiteSmoke;     
-            chartArea.ShadowColor = Color.FromArgb(0, 0, 0, 0);
-            chartArea.AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;//设置网格为虚线
-            chartArea.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
-            chart.ChartAreas.Add(chartArea);
-            
-            Series series = new Series("各公司岗位数目");
-            series.ChartArea = "ChartArea1";
-            series.ChartType = SeriesChartType.Column;//柱状图
-            series.YValueType = ChartValueType.Double;
-            series.LabelFormat = "0.ms";
-            series.XValueType = ChartValueType.Auto;
-            series.ShadowColor = Color.Black;
-            series.CustomProperties = "DrawingStyle=Emboss";
-            chart.Series.Add(series);
-
-            for (i = 0; i < companies.Count; i++)
-            {
-
-            }
-            int width = 700, height = 700;
-            return chart;
+            return g;
         }
         TreeView Pictures.Get_WorkAbilityTree(Informations informations)
         {

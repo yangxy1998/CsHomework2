@@ -189,7 +189,7 @@ namespace CsHomework2
                     infos[i].JobRequire = match.Groups["jobrequire"].Value;
                     regex = new Regex("<CompanyType>(?<companytype>.*?)</CompanyType>");
                     match = regex.Match(info);
-                    infos[i].CompanyName = match.Groups["companytype"].Value;
+                    infos[i].CompanyType = match.Groups["companytype"].Value;
                     regex = new Regex("<CompanyPrice>(?<companyprice>.*?)</CompanyPrice>");
                     match = regex.Match(info);
                     infos[i].CompanyPrice = match.Groups["companyprice"].Value;
@@ -225,9 +225,9 @@ namespace CsHomework2
                         +"<JobName>"+informations[i].JobName+"</JobName>"
                         +"<JobDuty>"+informations[i].JobDuty+"</JobDuty>"
                         +"<JobRequire>"+informations[i].JobRequire+"</JobRequire>"
-                        +"<CompanyType>"+informations[i].CompanyType+"</JobRequire>"
+                        +"<CompanyType>"+informations[i].CompanyType+"</CompanyType>"
                         +"<CompanyPrice>"+informations[i].CompanyPrice+"</CompanyPrice>"
-                        +"<CompanyAddress>"+informations[i].CompanyAddress+"</CompanyPrice>"
+                        +"<CompanyAddress>"+informations[i].CompanyAddress+"</CompanyAddress>"
                         +"<CompanyDetails>"+informations[i].CompanyDetails+"</CompanyDetails>"
                         +"<CompanyWebsite>"+informations[i].CompanyWebsite+"</CompanyWebsite></Informations>");
                     Console.WriteLine(i);
@@ -237,7 +237,7 @@ namespace CsHomework2
             return filepath;
         }
 
-        List<Company> Set_CompanyJobCount(Informations[] informations)//设置公司岗位数量，返回company列表
+        List<Company> GetInformations.Set_CompanyJobCount(Informations[] informations)//设置公司岗位数量，返回company列表
         {
             List<Company> Companies=new List<Company>();
             foreach(Informations information in informations){
