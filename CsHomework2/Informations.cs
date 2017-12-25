@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JiebaNet.Analyser;
 
 namespace CsHomework2
 {
-    class Informations
+    public class Informations
     {
         public string CompanyName//公司名称
         {
@@ -49,6 +50,11 @@ namespace CsHomework2
             get;
         }
         public string CompanyWebsite//公司官网
+        {
+            set;
+            get;
+        }
+        public WordWeightPair KeyWords//岗位关键词
         {
             set;
             get;

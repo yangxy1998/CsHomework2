@@ -18,5 +18,10 @@ namespace CsHomework2
             set;
             get;
         }
+        public List<Informations> CompanyInformations
+        {
+            set;
+            get;
+        }
     }
 }

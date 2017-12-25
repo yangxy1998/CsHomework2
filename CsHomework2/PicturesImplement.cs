@@ -11,7 +11,7 @@ namespace CsHomework2
 {
     class PicturesImplement:Pictures
     {
-        Graphics Pictures.Get_BarGraph(List<Company> companies)
+        Image Pictures.Get_BarGraph(List<Company> companies)
         {
             int[] counts = new int[companies.Count];
             string[] names = new string[companies.Count];
@@ -20,27 +20,41 @@ namespace CsHomework2
             Graphics g = Graphics.FromImage(image);
             Pen mypen = new Pen(Brushes.Black, 1);
             g.FillRectangle(Brushes.WhiteSmoke, 0, 0, width, height);
-            for (int i = 0, x = 36; i < companies.Count; i++)
+            for (int x = 20; x <= 700;)
             {
-                g.DrawLine(mypen, x, 80, x, 340);
-                x = x + 36;
+                g.DrawLine(mypen, x, 0, x, 200);
+                g.DrawLine(mypen, x, 250, x, 450);
+                x = x + 20;
             }
-            for (int i = 0, y = 0; i < 20; i++)
+            for (int y = 0; y <= 200;)
             {
-                Font font = new Font("宋体", 12);
-                g.DrawString((i * 10).ToString(), font, Brushes.Black,10,400-y);
-                g.DrawLine(mypen, 60, y, 620, y);
+                Font font = new Font("宋体", 6);
+                g.DrawString(y.ToString(), font, Brushes.Black, 10, 450 - y);
+                g.DrawString(y.ToString(), font, Brushes.Black, 10, 200 - y);
+                g.DrawLine(mypen, 20, y, 680, y);
+                g.DrawLine(mypen, 20, 250 + y, 680, 250 + y);
                 y = y + 20;
             }
-            int X = 36;
+            int X = 20;
+            int Y = 450;
             foreach (Company company in companies)
             {
-                Font font=new Font("宋体",12);
-                g.DrawString(company.CompanyName, font, Brushes.Black, X, 400);
-                g.FillRectangle(Brushes.Green, X, 400, 20, company.WorkCount*2);
-                X += 36;
+                if (company.WorkCount < 2) continue;
+                if (X >= 680)
+                {
+                    X = 20;
+                    Y = 200;
+                }
+                Font font=new Font("宋体",9);
+                //设置横轴公司名
+                StringFormat strF = new StringFormat(StringFormatFlags.DirectionVertical);
+                g.DrawString(company.CompanyName, font, Brushes.Black, X, Y,strF);
+                //填充直方图
+                g.FillRectangle(Brushes.Green, X, Y - company.WorkCount, 12, company.WorkCount);
+                g.DrawString(company.WorkCount.ToString(), font, Brushes.Black, X, Y - company.WorkCount-10);
+                X += 20;
             }
-            return g;
+            return image;
         }
         TreeView Pictures.Get_WorkAbilityTree(Informations informations)
         {

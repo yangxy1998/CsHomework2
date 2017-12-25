@@ -19,6 +19,7 @@ namespace CsHomework2
     {
         GetInformations getinformations = new GetInformationsImplement();
         Pictures pictures=new PicturesImplement();
+        Informations[] informations;
         public Form1()
         {
             InitializeComponent();
@@ -26,15 +27,39 @@ namespace CsHomework2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.informations = getinformations.GetInformationsFromFile("C:\\Users\\Administrator\\Desktop\\informations.txt");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Informations[] informations = getinformations.GetInformationsFromFile("C:\\Users\\Administrator\\Desktop\\informations.txt");
+            int i = 0;
+            foreach (Informations information in informations)
+            {
+                ListViewItem LvItem = new ListViewItem();
+                LvItem.Text = information.JobName;
+                listView1.Items.Add(LvItem);
+                progressBar1.Value = (int)(100*i / informations.Length)*progressBar1.Step;
+                i++;
+                Application.DoEvents();
+            }
+            progressBar1.Value = 0;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
             List<Company> companies = getinformations.Set_CompanyJobCount(informations);
-            Graphics g = pictures.Get_BarGraph(companies);
-            imageList1.Draw(g, 0, 0, 0);
+            pictureBox1.BackgroundImage = pictures.Get_BarGraph(companies);
+        }
+
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ListViewHitTestInfo info = listView1.HitTest(e.X, e.Y);
+            if (info.Item != null)
+            {
+                int k = info.Item.Index;
+                Form2 form = new Form2(informations[k]);
+                form.ShowDialog();
+            }
         }
     }
 }

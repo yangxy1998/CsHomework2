@@ -25,3 +25,4 @@ E:\GitHub\CsHomework2\CsHomework2\bin\Debug\System.Windows.Forms.DataVisualizati
 E:\GitHub\CsHomework2\CsHomework2\bin\Debug\System.Windows.Forms.DataVisualization.MSChartExtension.dll
 E:\GitHub\CsHomework2\CsHomework2\bin\Debug\Newtonsoft.Json.xml
 E:\GitHub\CsHomework2\CsHomework2\bin\Debug\System.Windows.Forms.DataVisualization.MSChartExtension.xml
+E:\GitHub\CsHomework2\CsHomework2\obj\Debug\CsHomework2.Form2.resources

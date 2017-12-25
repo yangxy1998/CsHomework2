@@ -248,6 +248,7 @@ namespace CsHomework2
                     {
                         IsExist = true;
                         company.WorkCount += 1;
+                        company.CompanyInformations.Add(information);
                     }
                 }
                 if (IsExist) continue;//如果存在这个公司
@@ -256,6 +257,7 @@ namespace CsHomework2
                     Company company = new Company();
                     company.CompanyName = information.CompanyName;
                     company.WorkCount = 0;
+                    company.CompanyInformations.Add(information);
                     Companies.Add(company);
                 }
             }
