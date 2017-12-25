@@ -19,5 +19,7 @@ namespace CsHomework2
         Image Get_BarGraph(List<Company> Companies);
         //获取岗位技能树，传入参数为一条岗位信息，返回一个树状图
         TreeView Get_WorkAbilityTree(Informations informations);
+        //获取岗位信息关键词，传入参数为一条岗位信息，返回一个饼图
+        Image Get_PieGraph(Informations informations);
     }
 }

@@ -6,11 +6,37 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Windows.Forms.DataVisualization.Charting;
+using JiebaNet.Analyser;
 
 namespace CsHomework2
 {
     class PicturesImplement:Pictures
     {
+        //各种颜色
+        Brush[] brushes ={Brushes.AliceBlue,Brushes.AntiqueWhite,Brushes.Aqua,Brushes.Aquamarine,Brushes.Azure,
+                             Brushes.Beige,Brushes.Bisque,Brushes.BlanchedAlmond,Brushes.Blue,Brushes.BlueViolet,
+                             Brushes.Brown,Brushes.BurlyWood,Brushes.CadetBlue,Brushes.Chartreuse,Brushes.Chocolate,
+                             Brushes.Coral,Brushes.CornflowerBlue,Brushes.Cornsilk,Brushes.Crimson,Brushes.Cyan,
+                             Brushes.DarkBlue,Brushes.DarkCyan,Brushes.DarkGoldenrod,Brushes.DarkGray,Brushes.DarkGreen,
+                             Brushes.DarkKhaki,Brushes.DarkMagenta,Brushes.DarkOliveGreen,Brushes.DarkOrange,Brushes.DarkOrchid,
+                             Brushes.DarkRed,Brushes.DarkSalmon,Brushes.DarkSeaGreen,Brushes.DarkSlateBlue,Brushes.DarkSlateGray,
+                             Brushes.DarkTurquoise,Brushes.DarkViolet,Brushes.DeepPink,Brushes.DeepSkyBlue,Brushes.DimGray,Brushes.DodgerBlue,
+                             Brushes.Firebrick,Brushes.FloralWhite,Brushes.ForestGreen,Brushes.Fuchsia,Brushes.Gainsboro,Brushes.Gold,
+                             Brushes.Goldenrod,Brushes.Gray,Brushes.Green,Brushes.GreenYellow,Brushes.Honeydew,Brushes.HotPink,Brushes.IndianRed,
+                             Brushes.Indigo,Brushes.Ivory,Brushes.Khaki,Brushes.Lavender,Brushes.LavenderBlush,Brushes.LawnGreen,Brushes.LemonChiffon,
+                             Brushes.LightBlue,Brushes.LightCoral,Brushes.LightCyan,Brushes.LightGoldenrodYellow,Brushes.LightGray,Brushes.LightGreen,
+                             Brushes.LightPink,Brushes.LightSalmon,Brushes.LightSeaGreen,Brushes.LightSkyBlue,Brushes.LightSlateGray,Brushes.LightSteelBlue,
+                             Brushes.LightYellow,Brushes.Lime,Brushes.LimeGreen,Brushes.Linen,Brushes.Magenta,Brushes.Maroon,Brushes.MediumAquamarine,
+                             Brushes.MediumBlue,Brushes.MediumOrchid,Brushes.MediumPurple,Brushes.MediumSeaGreen,Brushes.MediumSlateBlue,Brushes.MediumSpringGreen,
+                             Brushes.MediumTurquoise,Brushes.MediumVioletRed,Brushes.MidnightBlue,Brushes.MintCream,Brushes.MistyRose,Brushes.Moccasin,
+                             Brushes.NavajoWhite,Brushes.Navy,Brushes.OldLace,Brushes.Olive,Brushes.OliveDrab,Brushes.Orange,Brushes.OrangeRed,Brushes.Orchid,
+                             Brushes.PaleGoldenrod,Brushes.PaleGreen,Brushes.PaleTurquoise,Brushes.PaleVioletRed,Brushes.PapayaWhip,Brushes.PeachPuff,
+                             Brushes.Peru,Brushes.Pink,Brushes.Plum,Brushes.PowderBlue,Brushes.Purple,Brushes.Red,Brushes.SeaShell,
+                             Brushes.RosyBrown,Brushes.RoyalBlue,Brushes.SaddleBrown,Brushes.Salmon,Brushes.SandyBrown,Brushes.SeaGreen,
+                             Brushes.Sienna,Brushes.Silver,Brushes.SkyBlue,Brushes.SlateBlue,Brushes.SlateGray,Brushes.Snow,Brushes.SpringGreen,
+                             Brushes.SteelBlue,Brushes.Tan,Brushes.Teal,Brushes.Thistle,Brushes.Tomato,Brushes.Transparent,Brushes.Turquoise,
+                             Brushes.Violet,Brushes.Wheat,Brushes.White,Brushes.WhiteSmoke,Brushes.Yellow,Brushes.YellowGreen
+                        };
         Image Pictures.Get_BarGraph(List<Company> companies)
         {
             int[] counts = new int[companies.Count];
@@ -37,10 +63,6 @@ namespace CsHomework2
             }
             int X = 20;
             int Y = 450;
-            Brush[] brushes ={
-                                      Brushes.Red,Brushes.Orange,Brushes.Yellow,Brushes.Green,
-                                      Brushes.Cyan,Brushes.Blue,Brushes.Purple
-                                  };
             Random rand = new Random();
             foreach (Company company in companies)
             {
@@ -50,7 +72,7 @@ namespace CsHomework2
                     X = 20;
                     Y = 200;
                 }
-                int randomNumber = rand.Next(7);
+                int randomNumber = rand.Next(brushes.Length);
                 Font font=new Font("宋体",9);
                 //设置横轴公司名
                 StringFormat strF = new StringFormat(StringFormatFlags.DirectionVertical);
@@ -66,6 +88,24 @@ namespace CsHomework2
         {
             TreeView treeview = null;
             return treeview;
+        }
+        Image Pictures.Get_PieGraph(Informations informations)
+        {
+            Bitmap image = new Bitmap(400, 300);
+            Graphics g = Graphics.FromImage(image);
+            g.Clear(Color.White);
+            double angle = 0;
+            double totalangle = 0;
+            Random rand=new Random();
+            foreach (WordWeightPair wordweight in informations.KeyWords)
+            {
+                int randomNumber=rand.Next(brushes.Length);
+                angle = wordweight.Weight * 360;
+                g.FillPie(brushes[randomNumber], 220, 150, 120, 120, (int)totalangle, (int)angle);
+                g.DrawPie(Pens.Black, 220, 150, 120, 120, (int)totalangle, (int)angle);
+                totalangle += angle;
+            }
+            return image;
         }
     }
 }

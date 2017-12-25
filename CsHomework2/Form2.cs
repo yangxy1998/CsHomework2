@@ -12,11 +12,13 @@ namespace CsHomework2
 {
     public partial class Form2 : Form
     {
+        Pictures pictures = new PicturesImplement();
         Informations informations;
         public Form2(Informations informations)
         {
             this.informations = informations;
             InitializeComponent();
+            pictureBox1.BackgroundImage = pictures.Get_PieGraph(informations);
             textBox1.AppendText("公司名称：" + informations.CompanyName + "\n");
             textBox1.AppendText("岗位名称：" + informations.JobName + "\n");
             textBox1.AppendText(informations.JobDuty + "\n");
@@ -29,6 +31,16 @@ namespace CsHomework2
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
         {
 
         }

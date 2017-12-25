@@ -54,7 +54,7 @@ namespace CsHomework2
             set;
             get;
         }
-        public WordWeightPair KeyWords//岗位关键词
+        public HashSet<WordWeightPair> KeyWords//岗位关键词
         {
             set;
             get;
