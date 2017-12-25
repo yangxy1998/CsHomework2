@@ -37,6 +37,11 @@ namespace CsHomework2
             }
             int X = 20;
             int Y = 450;
+            Brush[] brushes ={
+                                      Brushes.Red,Brushes.Orange,Brushes.Yellow,Brushes.Green,
+                                      Brushes.Cyan,Brushes.Blue,Brushes.Purple
+                                  };
+            Random rand = new Random();
             foreach (Company company in companies)
             {
                 if (company.WorkCount < 2) continue;
@@ -45,12 +50,13 @@ namespace CsHomework2
                     X = 20;
                     Y = 200;
                 }
+                int randomNumber = rand.Next(7);
                 Font font=new Font("宋体",9);
                 //设置横轴公司名
                 StringFormat strF = new StringFormat(StringFormatFlags.DirectionVertical);
-                g.DrawString(company.CompanyName, font, Brushes.Black, X, Y,strF);
+                g.DrawString(company.CompanyName, font, Brushes.Black, X, Y, strF);
                 //填充直方图
-                g.FillRectangle(Brushes.Green, X, Y - company.WorkCount, 12, company.WorkCount);
+                g.FillRectangle(brushes[randomNumber], X + 4, Y - company.WorkCount, 12, company.WorkCount);
                 g.DrawString(company.WorkCount.ToString(), font, Brushes.Black, X, Y - company.WorkCount-10);
                 X += 20;
             }
