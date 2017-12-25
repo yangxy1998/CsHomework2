@@ -255,6 +255,7 @@ namespace CsHomework2
                 else//不存在，则新建一个
                 {
                     Company company = new Company();
+                    company.CompanyInformations=new List<Informations>();
                     company.CompanyName = information.CompanyName;
                     company.WorkCount = 0;
                     company.CompanyInformations.Add(information);
